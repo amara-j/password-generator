@@ -18,3 +18,26 @@
   justify-content: center;
   text-align: center;
 }
+
+ .rangeslider-horizontal {
+   height: 5px;
+   width:200px;
+   border-radius: 1px;
+ }
+
+ .rangeslider-horizontal .rangeslider__fill {
+	 height: 100%;
+   background-color:blue;
+   border: none;
+	 border-radius: 10px;
+	 top: 0;
+}
+ .rangeslider-horizontal .rangeslider__handle {
+   position: relative;
+   width: 15px;
+   height: 15px;
+   background-color: purple;
+	 border-radius: 15px;
+	 top: -50%;
+	 transform: translate3d(-50%,-50%,0);
+}
