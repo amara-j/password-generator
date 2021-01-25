@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+.passwordView {
+  display: block;
+  color: black;
+  width: auto;
+  padding: 50px;
+  word-wrap: break-word;
+  font-size: 60px;
+  margin: auto;
+}
+
 .App-header {
   height: auto;
   padding: 40px;
@@ -10,34 +20,33 @@
   color: purple;
 }
 
-.passwordView {
-  color: black;
-  font-size: 80px;
+.rangeslider-horizontal {
+  margin: auto;
+  height: 5px;
+  width: 200px;
+  border-radius: 1px;
+}
+
+.rangeslider-horizontal .rangeslider__fill {
+  height: 100%;
+  background-color: blue;
+  border: none;
+  border-radius: 10px;
+  top: 0;
+}
+.rangeslider-horizontal .rangeslider__handle {
   position: relative;
-  top: 200px;
-  justify-content: center;
-  text-align: center;
+  width: 15px;
+  height: 15px;
+  background-color: purple;
+  border-radius: 15px;
+  top: -50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 
- .rangeslider-horizontal {
-   height: 5px;
-   width:200px;
-   border-radius: 1px;
- }
-
- .rangeslider-horizontal .rangeslider__fill {
-	 height: 100%;
-   background-color:blue;
-   border: none;
-	 border-radius: 10px;
-	 top: 0;
-}
- .rangeslider-horizontal .rangeslider__handle {
-   position: relative;
-   width: 15px;
-   height: 15px;
-   background-color: purple;
-	 border-radius: 15px;
-	 top: -50%;
-	 transform: translate3d(-50%,-50%,0);
+.rangeslider {
+  margin: 20px 0;
+  position: relative;
+  background: gray;
+  touch-action: none;
 }
