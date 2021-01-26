@@ -1,31 +1,58 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Slider from 'react-rangeslider'
-// import 'react-rangeslider/lib/index.css'
 
 
-const CharacterLengthSlider = () => {
+const PasswordView = () => {
   const [password, updatePassword] = useState("");
   const [generatePasswordClicked, handleGeneratePasswordClick] = useState(false);
   const [sliderValue, updateValue] = useState(10);
+  const [includeDigit, updateDigitChange] = useState(true);
+  const [includeSymbol, updateSymbolChange] = useState(true);
 
   const handleChange = (value) => {
-    sliderValue === value ? console.log('hi') :
-      updateValue(value)
-    generatePassword(value)
+    if (sliderValue !== value) {
+    updateValue(value)
+    generatePassword()
+    }
   };
+  
+const clipboardCopy = (textToCopy) => {
+  navigator.clipboard.writeText(textToCopy).then(function() {
+    /* clipboard successfully set */
+  }, function() {
+    /* clipboard write failed */
+  });
+}
 
+const handleSymbolChange = () => {
+  updateSymbolChange(!includeSymbol)
+  generatePassword(sliderValue)
+}
 
-  const generatePassword = (length) => {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const handleDigitChange = () => {
+    updateDigitChange(!includeDigit)
+    generatePassword(sliderValue)
+}
+
+const generatePassword = () => {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const digits = '0123456789'.split('');
+    const symbols = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~".split('')
+   let passwordCharSet = [];
+    if (includeDigit && includeSymbol){passwordCharSet = alphabet.concat(digits.concat(symbols))} 
+    else if (includeDigit) {passwordCharSet = alphabet.concat(digits)}
+    else if (includeSymbol) {passwordCharSet = alphabet.concat(symbols)}
+    else if (!includeDigit && !includeSymbol) {passwordCharSet = alphabet}
     let newPassword = []
-    for (let i = 0; i < length; i++) {
-      newPassword.push(alphabet[Math.floor(26 * Math.random())])
+    for (let i = 0; i < sliderValue; i++) {
+      newPassword.push(passwordCharSet[Math.floor(passwordCharSet.length * Math.random())])
       newPassword.join("");
     }
     handleGeneratePasswordClick(true);
     updatePassword(newPassword);
   }
+
 
   return (
     <div>
@@ -38,14 +65,24 @@ const CharacterLengthSlider = () => {
       />
           </div>
       <div className='value'>{sliderValue} Characters</div>
-      <button onClick={() => generatePassword(sliderValue)}>Click to generate password</button>
+      <button onClick={() => generatePassword(sliderValue)}>Generate password</button>
+      <button onClick={() => clipboardCopy(password.join(''))}>Copy to Clipboard</button>
       <div className="passwordView">
         {generatePasswordClicked ? password : null}
       </div>
+<form>
+  <label>
+    Include symbols
+    <input type="checkbox" defaultChecked = "true" onChange={()=> handleSymbolChange()}/>
+  </label>
+  <label>
+Include digits
+  <input type="checkbox" defaultChecked = "true" onChange={()=> handleDigitChange()}/>
+  </label>
+</form>
 </div>
   )
 }
-
 
 const App = () => {
   return (
@@ -53,8 +90,9 @@ const App = () => {
       <header className="App-header">
         Secure Password Generator
       </header>
-      <CharacterLengthSlider />
+      <PasswordView />
     </div>
+
   )
 }
 export default App;
