@@ -50,3 +50,7 @@
   background: gray;
   touch-action: none;
 }
+
+.rangeslider__handle-tooltip {
+  display: none;
+}
