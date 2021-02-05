@@ -24,14 +24,9 @@ const PasswordView = () => {
   };
 
   const clipboardCopy = (textToCopy) => {
-    navigator.clipboard.writeText(textToCopy).then(
-      function () {
-        updateCopyText("Copied!");
-      },
-      function () {
-        /* clipboard failure message/action*/
-      }
-    );
+    navigator.clipboard.writeText(textToCopy).then(function () {
+      updateCopyText("Copied!");
+    });
   };
 
   const handleSymbolChange = () => {
@@ -113,35 +108,32 @@ const PasswordView = () => {
         <div id="copyText">{copyText}</div>
       </div>
       <div id="theControlPanel">
-        {/* <div className="rangeslider-horizontal"> */}
         <Slider
           min={10}
           max={100}
           value={sliderValue}
           onChange={handleChange}
         />
-        {/* </div> */}
         <div className="value">{sliderValue} Characters</div>
-        <form id="digitsSymbolsInput">
-          <label>
-            <input
-              type="checkbox"
-              defaultChecked="true"
-              onChange={() => handleSymbolChange()}
-            />
-            Symbols
-            <span class="label"></span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              defaultChecked="true"
-              onChange={() => handleDigitChange()}
-            />
-            Numbers
-            <span class="label"></span>
-          </label>
-        </form>
+        <label class="container">
+          Symbols
+          <input
+            type="checkbox"
+            defaultChecked="true"
+            onChange={() => handleSymbolChange()}
+          />
+          <span class="checkmark"></span>
+        </label>
+
+        <label class="container">
+          Digits
+          <input
+            type="checkbox"
+            defaultChecked="true"
+            onChange={() => handleDigitChange()}
+          />
+          <span class="checkmark"></span>
+        </label>
       </div>
     </div>
   );
