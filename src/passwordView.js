@@ -108,32 +108,25 @@ const PasswordView = () => {
         <div id="copyText">{copyText}</div>
       </div>
       <div id="theControlPanel">
+        <div className="value">{sliderValue} Characters</div>
         <Slider
           min={10}
           max={100}
           value={sliderValue}
           onChange={handleChange}
         />
-        <div className="value">{sliderValue} Characters</div>
-        <label class="container">
-          Symbols
-          <input
-            type="checkbox"
-            defaultChecked="true"
-            onChange={() => handleSymbolChange()}
-          />
-          <span class="checkmark"></span>
-        </label>
-
-        <label class="container">
-          Digits
-          <input
-            type="checkbox"
-            defaultChecked="true"
-            onChange={() => handleDigitChange()}
-          />
-          <span class="checkmark"></span>
-        </label>
+        <div className="checkboxesContainer">
+          <label className="container">
+            Symbols
+            <input type="checkbox" onChange={() => handleSymbolChange()} />
+            <span className="checkmark"></span>
+          </label>
+          <label className="container">
+            Numbers
+            <input type="checkbox" onChange={() => handleDigitChange()} />
+            <span className="checkmark"></span>
+          </label>
+        </div>
       </div>
     </div>
   );
