@@ -9,6 +9,7 @@ const PasswordView = () => {
   const [sliderValue, updateValue] = useState(10);
   const [includeDigit, updateDigitChange] = useState(true);
   const [includeSymbol, updateSymbolChange] = useState(true);
+  const [copyText, updateCopyText] = useState("Click to copy");
 
   useEffect(() => generatePassword(), [
     sliderValue,
@@ -25,7 +26,7 @@ const PasswordView = () => {
   const clipboardCopy = (textToCopy) => {
     navigator.clipboard.writeText(textToCopy).then(
       function () {
-        /* clipboard success message/action*/
+        updateCopyText("Copied!");
       },
       function () {
         /* clipboard failure message/action*/
@@ -59,7 +60,7 @@ const PasswordView = () => {
       ""
     );
     const digits = "0123456789".split("");
-    const symbols = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~".split("");
+    const symbols = "!#$%&'()*+,./:;<=>?@[]^_`{|}~".split("");
 
     let newPassword = [];
     let numberOfDigits = 0;
@@ -89,6 +90,7 @@ const PasswordView = () => {
   const handleKeyDown = (e) => {
     if (e.code === "Space") {
       generatePassword();
+      updateCopyText("Click to copy");
     }
   };
 
@@ -102,49 +104,45 @@ const PasswordView = () => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  useEffect(() => {
-    document.addEventListener("click", copyPassword);
-    return () => document.removeEventListener("click", copyPassword);
-  }, [copyPassword]);
-
   return (
-    <div>
-      <div className="rangeslider-horizontal">
+    <div className="App">
+      <div id="notTheControlPanel" onClick={() => copyPassword()}>
+        <div className="passwordView">
+          {generatePasswordClicked ? password : null}
+        </div>
+        <div id="copyText">{copyText}</div>
+      </div>
+      <div id="theControlPanel">
+        {/* <div className="rangeslider-horizontal"> */}
         <Slider
           min={10}
           max={100}
           value={sliderValue}
           onChange={handleChange}
         />
+        {/* </div> */}
+        <div className="value">{sliderValue} Characters</div>
+        <form id="digitsSymbolsInput">
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked="true"
+              onChange={() => handleSymbolChange()}
+            />
+            Symbols
+            <span class="label"></span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              defaultChecked="true"
+              onChange={() => handleDigitChange()}
+            />
+            Numbers
+            <span class="label"></span>
+          </label>
+        </form>
       </div>
-      <div className="value">{sliderValue} Characters</div>
-      <button onClick={() => generatePassword(sliderValue)}>
-        Generate password
-      </button>
-      <button onClick={() => clipboardCopy(password.join(""))}>
-        Copy to Clipboard
-      </button>
-      <div className="passwordView">
-        {generatePasswordClicked ? password : null}
-      </div>
-      <form>
-        <label>
-          Symbols
-          <input
-            type="checkbox"
-            defaultChecked="true"
-            onChange={() => handleSymbolChange()}
-          />
-        </label>
-        <label>
-          Numbers
-          <input
-            type="checkbox"
-            defaultChecked="true"
-            onChange={() => handleDigitChange()}
-          />
-        </label>
-      </form>
     </div>
   );
 };
