@@ -80,6 +80,7 @@ const PasswordView = () => {
     for (let k = 0; k < sliderValue - numberOfDigits - numberOfSymbols; k++) {
       newPassword.push(alphabet[Math.floor(alphabet.length * Math.random())]);
     }
+    shuffle(newPassword);
     newPassword.join("");
     handleGeneratePasswordClick(true);
     updatePassword(newPassword);
@@ -107,7 +108,7 @@ const PasswordView = () => {
       </div>
       <form>
         <label>
-          Allow symbols
+          Symbols
           <input
             type="checkbox"
             defaultChecked="true"
@@ -115,7 +116,7 @@ const PasswordView = () => {
           />
         </label>
         <label>
-          Allow digits
+          Numbers
           <input
             type="checkbox"
             defaultChecked="true"
