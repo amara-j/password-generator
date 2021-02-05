@@ -6,10 +6,12 @@ const PasswordView = () => {
   const [generatePasswordClicked, handleGeneratePasswordClick] = useState(
     false
   );
-  const [sliderValue, updateValue] = useState(10);
+  const [sliderValue, updateValue] = useState(22);
   const [includeDigit, updateDigitChange] = useState(true);
   const [includeSymbol, updateSymbolChange] = useState(true);
-  const [copyText, updateCopyText] = useState("Click to copy");
+  const [copyText, updateCopyText] = useState(
+    "Press the space bar to generate a new password.  Press enter to copy."
+  );
 
   useEffect(() => generatePassword(), [
     sliderValue,
@@ -82,15 +84,19 @@ const PasswordView = () => {
     updatePassword(newPassword);
   };
 
+  const copyPassword = () => {
+    clipboardCopy(password.join(""));
+  };
+
   const handleKeyDown = (e) => {
     if (e.code === "Space") {
       generatePassword();
-      updateCopyText("Click to copy");
+      updateCopyText("Press enter to copy");
     }
-  };
-
-  const copyPassword = () => {
-    clipboardCopy(password.join(""));
+    if (e.code === "Enter") {
+      copyPassword();
+      updateCopyText("Copied!");
+    }
   };
 
   useEffect(() => {
@@ -105,9 +111,9 @@ const PasswordView = () => {
         <div className="passwordView">
           {generatePasswordClicked ? password : null}
         </div>
-        <div id="copyText">{copyText}</div>
       </div>
       <div id="theControlPanel">
+        <div id="copyText">{copyText}</div>
         <div className="value">{sliderValue} Characters</div>
         <Slider
           min={10}
@@ -118,12 +124,20 @@ const PasswordView = () => {
         <div className="checkboxesContainer">
           <label className="container">
             Symbols
-            <input type="checkbox" onChange={() => handleSymbolChange()} />
+            <input
+              type="checkbox"
+              defaultChecked="true"
+              onChange={() => handleSymbolChange()}
+            />
             <span className="checkmark"></span>
           </label>
           <label className="container">
             Numbers
-            <input type="checkbox" onChange={() => handleDigitChange()} />
+            <input
+              type="checkbox"
+              defaultChecked="true"
+              onChange={() => handleDigitChange()}
+            />
             <span className="checkmark"></span>
           </label>
         </div>

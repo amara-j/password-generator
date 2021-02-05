@@ -18,14 +18,17 @@ html {
 }
 
 .rangeslider-horizontal {
+  position: absolute;
   margin-left: 30vw;
   margin-right: 30vw;
   height: 5px;
   width: 40vw;
   border-radius: 1px;
+  top: 17vh;
 }
 
 .rangeslider-horizontal .rangeslider__fill {
+  position: absolute;
   height: 100%;
   background-color: #de00aa;
   border: none;
@@ -38,7 +41,6 @@ html {
   height: 22px;
   background-color: gold;
   border-radius: 15px;
-  top: -50%;
   transform: translate3d(-50%, -50%, 0);
 }
 
@@ -57,22 +59,16 @@ html {
   color: white;
 }
 
-#copyText {
-  position: absolute;
-  top: 50vh;
-  width: 100vw;
-  color: white;
-  font-size: 30px;
-}
-
 #notTheControlPanel {
-  height: 75vh;
+  height: 60vh;
+  margin: auto;
+  align-content: center;
 }
 
 #theControlPanel {
   margin: auto;
   width: 40vw;
-  height: 15vh;
+  height: 20vh;
 }
 
 .container {
@@ -113,7 +109,7 @@ html {
 .checkboxesContainer {
   position: absolute;
   align-items: center;
-  top: 83vh;
+  top: 84vh;
   width: 125px;
   padding-left: 15vw;
 }
@@ -125,4 +121,13 @@ html {
   font-size: 30px;
   color: white;
   user-select: none;
+}
+
+#copyText {
+  position: absolute;
+  left: 0px;
+  width: 100vw;
+  white-space: nowrap;
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.5);
 }
