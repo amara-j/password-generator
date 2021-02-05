@@ -10,6 +10,7 @@ const PasswordView = () => {
   const [sliderValue, updateValue] = useState(10);
   const [includeDigit, updateDigitChange] = useState(true);
   const [includeSymbol, updateSymbolChange] = useState(true);
+
   useEffect(() => generatePassword(), [
     sliderValue,
     includeDigit,
@@ -86,6 +87,17 @@ const PasswordView = () => {
     updatePassword(newPassword);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.code === "Space") {
+      generatePassword();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   return (
     <div>
       <div className="rangeslider-horizontal">
@@ -131,7 +143,6 @@ const PasswordView = () => {
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">Password Generator</header>
       <PasswordView />
     </div>
   );
