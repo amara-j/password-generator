@@ -93,10 +93,20 @@ const PasswordView = () => {
     }
   };
 
+  const copyPassword = () => {
+    clipboardCopy(password.join(""));
+  };
+
   useEffect(() => {
+    document.title = "Password Generator";
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
+
+  useEffect(() => {
+    document.addEventListener("click", copyPassword);
+    return () => document.removeEventListener("click", copyPassword);
+  }, [copyPassword]);
 
   return (
     <div>
