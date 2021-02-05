@@ -8,7 +8,7 @@ const PasswordView = () => {
   );
   const [sliderValue, updateValue] = useState(22);
   const [includeDigit, updateDigitChange] = useState(true);
-  const [includeSymbol, updateSymbolChange] = useState(true);
+  const [includeSymbol, updateSymbolChange] = useState(false);
   const [copyText, updateCopyText] = useState(
     "Press the space bar to generate a new password.  Press enter to copy."
   );
@@ -124,11 +124,7 @@ const PasswordView = () => {
         <div className="checkboxesContainer">
           <label className="container">
             Symbols
-            <input
-              type="checkbox"
-              defaultChecked="true"
-              onChange={() => handleSymbolChange()}
-            />
+            <input type="checkbox" onChange={() => handleSymbolChange()} />
             <span className="checkmark"></span>
           </label>
           <label className="container">
